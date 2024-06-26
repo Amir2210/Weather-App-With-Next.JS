@@ -1,53 +1,68 @@
-interface Coord {
-  lon: number;
-  lat: number;
-}
-
-interface Weather {
+interface WeatherDetail {
   id: number;
   main: string;
   description: string;
   icon: string;
 }
 
-interface Main {
+interface MainDetail {
   temp: number;
   feels_like: number;
   temp_min: number;
   temp_max: number;
   pressure: number;
+  sea_level: number;
+  grnd_level: number;
   humidity: number;
-}
-
-interface Wind {
-  speed: number;
-  deg: number;
+  temp_kf: number;
 }
 
 interface Clouds {
   all: number;
 }
 
+interface Wind {
+  speed: number;
+  deg: number;
+  gust: number;
+}
+
 interface Sys {
-  type: number;
+  pod: string;
+}
+
+interface WeatherList {
+  dt: number;
+  main: MainDetail;
+  weather: WeatherDetail[];
+  clouds: Clouds;
+  wind: Wind;
+  visibility: number;
+  pop: number;
+  sys: Sys;
+  dt_txt: string;
+}
+
+interface Coord {
+  lat: number;
+  lon: number;
+}
+
+interface City {
   id: number;
+  name: string;
+  coord: Coord;
   country: string;
+  population: number;
+  timezone: number;
   sunrise: number;
   sunset: number;
 }
 
 export default interface WeatherData {
-  coord: Coord;
-  weather: Weather[];
-  base: string;
-  main: Main;
-  visibility: number;
-  wind: Wind;
-  clouds: Clouds;
-  dt: number;
-  sys: Sys;
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
+  cod: string;
+  message: number;
+  cnt: number;
+  list: WeatherList[];
+  city: City;
 }

@@ -1,5 +1,5 @@
 export function timestampToDate(timestamp: number): string {
-  const date = new Date(timestamp * 1000)
+  const date = new Date(timestamp)
   const day = String(date.getUTCDate()).padStart(2, '0')
   const month = String(date.getUTCMonth() + 1).padStart(2, '0')
   const year = date.getUTCFullYear()
@@ -7,8 +7,9 @@ export function timestampToDate(timestamp: number): string {
 }
 
 export function timestampToDay(timestamp: number): string {
-  const date = new Date(timestamp * 1000)
+  const date = new Date(timestamp)
   const day = date.getUTCDay()
+  console.log('day:', day)
   switch (day) {
     case 0:
       return 'Sunday'
