@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import axios from 'axios';
 import WeatherData from '@/types/Weather';
 import { timestampToDate, timestampToDay } from '@/utils/formatedDate';
+import Container from '@/components/Container';
 
 
 
@@ -31,8 +32,11 @@ export default async function Home() {
               <p className='text-lg'>({timestampToDate(date)})</p>
             </h2>
           </div>
+          <Container className='gap-10 px-6 items-center' >
+            <div className='flex flex-col px-4'></div>
+          </Container>
         </section>
-        <div></div>
+        <section></section>
       </section>
     </main>
   )
