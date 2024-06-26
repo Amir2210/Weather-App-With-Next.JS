@@ -4,6 +4,8 @@ import WeatherData from '@/types/Weather';
 import { timestampToDate, timestampToDay } from '@/utils/formatedDate';
 import Container from '@/components/Container';
 import { kelvinToCelsius } from '@/utils/kelvinToCelsius';
+import WeatherIcon from '@/components/WeatherIcon';
+import { getDayOrNightIcon } from '@/utils/getDayOrNightIcon';
 
 
 
@@ -52,6 +54,7 @@ export default async function Home() {
               {weatherData?.list.map((data, i) =>
                 <div key={i} className='flex flex-col justify-between gap-2 items-center text-xs font-semibold'>
                   <p>{data.dt_txt.slice(10, 16)}</p>
+                  <WeatherIcon iconName={getDayOrNightIcon(data.weather[0].icon, data.dt_txt)} />
                   <p>{kelvinToCelsius(data?.main.temp ?? 0)}°</p>
                 </div>
               )}

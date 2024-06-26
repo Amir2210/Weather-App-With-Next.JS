@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {}
-};
+  experimental: {},
+  images: {
+    domains: ['openweathermap.org']
+  }
+}
 
 export default nextConfig;
