@@ -1,11 +1,13 @@
 import Navbar from '@/components/Navbar'
 import axios from 'axios';
 import WeatherData from '@/types/Weather';
-import { timestampToDate, timestampToDay } from '@/utils/formatedDate';
+import { timestampToDate, timestampToDay, timestampToHHMM } from '@/utils/formatedDate';
 import Container from '@/components/Container';
 import { kelvinToCelsius } from '@/utils/kelvinToCelsius';
 import WeatherIcon from '@/components/WeatherIcon';
 import { getDayOrNightIcon } from '@/utils/getDayOrNightIcon';
+import WeatherDetail from '@/components/WeatherDetail';
+import { metersToKilometers } from '@/utils/metersToKilometers';
 
 
 
@@ -61,7 +63,25 @@ export default async function Home() {
             </div>
           </Container>
         </section>
-        <section></section>
+        <div className='flex gap-4'>
+          <Container className='w-fit justify-center flex-col px-4 items-center'>
+            <p className='capitalize text-center'>{firstData?.weather[0].description}</p>
+            <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? '', firstData?.dt_txt ?? '')} />
+          </Container>
+          <Container className='bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto'>
+            <WeatherDetail
+              visibility={metersToKilometers(firstData?.visibility ?? 10000)}
+              airPressure={`${firstData?.main.pressure} hPa`}
+              windSpeed={`${firstData?.wind.speed} km/h`}
+              humidity={`${firstData?.main.humidity}%`}
+              sunrise={`${timestampToHHMM(weatherData?.city.sunrise)}`}
+              sunset={`${timestampToHHMM(weatherData?.city.sunset)}`}
+            />
+          </Container>
+        </div>
+        <section className='flex flex-col w-full gap-4'>
+          <p className='capitalize text-2xl'>forecast (7 days)</p>
+        </section>
       </section>
     </main>
   )
