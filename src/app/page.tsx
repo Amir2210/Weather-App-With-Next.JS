@@ -11,10 +11,10 @@ import { kelvinToCelsius } from '@/utils/kelvinToCelsius';
 
 export default async function Home() {
 
-  const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=tel%20aviv&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=2`)
+  const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=tel%20aviv&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
   const weatherData: WeatherData = data
   const firstData = weatherData?.list[0]
-  // console.log('weatherData:', weatherData)
+  console.log('weatherData:', weatherData)
 
   if (!data) {
     return (
@@ -23,7 +23,6 @@ export default async function Home() {
       </div>
     )
   }
-  console.log('firstData:', firstData)
   return (
     <main className='flex flex-col gap-4 bg-gray-100 min-h-screen'>
       <Navbar />
@@ -49,7 +48,14 @@ export default async function Home() {
                 <span>{kelvinToCelsius(firstData?.main.temp_max)}°↑</span>
               </p>
             </div>
-            <div className='flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3'></div>
+            <div className='flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3'>
+              {weatherData?.list.map((data, i) =>
+                <div key={i} className='flex flex-col justify-between gap-2 items-center text-xs font-semibold'>
+                  <p>{data.dt_txt.slice(10, 16)}</p>
+                  <p>{kelvinToCelsius(data?.main.temp ?? 0)}°</p>
+                </div>
+              )}
+            </div>
           </Container>
         </section>
         <section></section>
