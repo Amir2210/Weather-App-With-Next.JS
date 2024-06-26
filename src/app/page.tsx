@@ -8,6 +8,7 @@ import WeatherIcon from '@/components/WeatherIcon';
 import { getDayOrNightIcon } from '@/utils/getDayOrNightIcon';
 import WeatherDetail from '@/components/WeatherDetail';
 import { metersToKilometers } from '@/utils/metersToKilometers';
+import { convertWindSpeed } from '@/utils/convertWindSpeed';
 
 
 
@@ -72,7 +73,7 @@ export default async function Home() {
             <WeatherDetail
               visibility={metersToKilometers(firstData?.visibility ?? 10000)}
               airPressure={`${firstData?.main.pressure} hPa`}
-              windSpeed={`${firstData?.wind.speed} km/h`}
+              windSpeed={`${convertWindSpeed(firstData?.wind.speed)}`}
               humidity={`${firstData?.main.humidity}%`}
               sunrise={`${timestampToHHMM(weatherData?.city.sunrise)}`}
               sunset={`${timestampToHHMM(weatherData?.city.sunset)}`}
