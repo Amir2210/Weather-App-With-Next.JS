@@ -1,4 +1,4 @@
 export function kelvinToCelsius(kelvin: number): number {
-  return kelvin - 273.15;
+  return Math.floor(kelvin - 273.15)
 }
 
