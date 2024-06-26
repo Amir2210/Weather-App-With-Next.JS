@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import axios from 'axios';
 import WeatherData from '@/types/Weather';
+import { timestampToDate, timestampToDay } from '@/utils/formatedDate';
 
 
 
@@ -18,9 +19,19 @@ export default async function Home() {
       </div>
     )
   }
+  const { dt: date } = data
   return (
     <main className='flex flex-col gap-4 bg-gray-100 min-h-screen'>
       <Navbar />
+      <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 pb-10 pt-4'>
+        <section>
+          <div className='flex items-center gap-2'>
+            <h2 className='flex gap-1 text-2xl items-center'>{timestampToDay(date)}</h2>
+            <p>({timestampToDate(date)})</p>
+          </div>
+        </section>
+        <div></div>
+      </section>
     </main>
   )
 }
