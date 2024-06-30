@@ -20,7 +20,6 @@ export default async function Home() {
   const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=tel%20aviv&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
   const weatherData: WeatherData = data
   const firstData = weatherData?.list[0]
-  console.log(firstData)
   // console.log('weatherData:', weatherData)
 
   const uniqueDates = [
@@ -40,7 +39,6 @@ export default async function Home() {
     })
   })
 
-  // console.log(firstDataForEachDate)
 
   if (!data) {
     return (
@@ -50,18 +48,17 @@ export default async function Home() {
     )
   }
   return (
-    <main className='flex flex-col gap-4 bg-sky-500 min-h-screen'>
+    <main className='flex flex-col gap-4 bg-gradient-to-r from-sky-700 to-blue-600 min-h-screen'>
       <Navbar />
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4'>
         <section className='space-y-4'>
-          <div className='flex items-center gap-2 space-y-2'>
-            <h2 className='flex gap-1 text-2xl items-end'>
-              {/* <p>{timestampToDay(Date.now())}</p> */}
+          <div className='flex items-center gap-2 space-y-2 text-white'>
+            <h2 className='flex gap-1 text-4xl items-end'>
               <p>{timestampToDay(firstData?.dt)}</p>
               <p className='text-lg'>({timestampToDate(Date.now())})</p>
             </h2>
           </div>
-          <Container className='gap-10 px-6 items-center' >
+          <Container className='gap-10 px-6 items-center text-white' >
             <div className='flex flex-col px-4'>
               <span className='text-5xl'>
                 {kelvinToCelsius(firstData?.main.temp)}°
@@ -77,7 +74,7 @@ export default async function Home() {
             </div>
             <div className='flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3'>
               {weatherData?.list.map((data, i) =>
-                <div key={i} className='flex flex-col justify-between gap-2 items-center text-xs font-semibold'>
+                <div key={i} className='flex flex-col justify-between gap-2 items-center text-xs font-semibold '>
                   <p>{data.dt_txt.slice(10, 16)}</p>
                   <WeatherIcon iconName={getDayOrNightIcon(data.weather[0].icon, data.dt_txt)} />
                   <p>{kelvinToCelsius(data?.main.temp ?? 0)}°</p>
@@ -87,12 +84,13 @@ export default async function Home() {
           </Container>
         </section>
         <div className='flex gap-4'>
-          <Container className='w-fit justify-center flex-col px-4 items-center'>
+          <Container className='w-fit justify-center flex-col px-4 items-center text-white'>
             <p className='capitalize text-center'>{firstData?.weather[0].description}</p>
             <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? '', firstData?.dt_txt ?? '')} />
           </Container>
-          <Container className='bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto'>
+          <Container className='bg-gradient-to-r from-yellow-200 to-yellow-300 px-6 gap-4 justify-between overflow-x-auto'>
             <WeatherDetail
+              className='text-black/80'
               visibility={metersToKilometers(firstData?.visibility ?? 10000)}
               airPressure={`${firstData?.main.pressure} hPa`}
               windSpeed={`${convertWindSpeed(firstData?.wind.speed)}`}
@@ -103,7 +101,7 @@ export default async function Home() {
           </Container>
         </div>
         <section className='flex flex-col w-full gap-4'>
-          <p className='capitalize text-2xl'>forecast (7 days)</p>
+          <p className='capitalize text-4xl text-white'>forecast (7 days)</p>
           {firstDataForEachDate.map((data, index) => (
             <ForecastWeatherDetail key={index}
               description={data?.weather[0].description ?? ''}
