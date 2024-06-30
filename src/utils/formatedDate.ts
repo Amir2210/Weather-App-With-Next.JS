@@ -6,10 +6,17 @@ export function timestampToDate(timestamp: number): string {
   return `${day}/${month}/${year}`
 }
 
+export function timestampToMMDD(timestamp: number): string {
+  const date = new Date(timestamp * 1000)
+  const day = String(date.getUTCDate()).padStart(2, '0')
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0')
+  return `${day}.${month}`
+}
+
+
 export function timestampToDay(timestamp: number): string {
-  const date = new Date(timestamp)
+  const date = new Date(timestamp * 1000)
   const day = date.getUTCDay()
-  console.log('day:', day)
   switch (day) {
     case 0:
       return 'Sunday'
@@ -31,7 +38,6 @@ export function timestampToDay(timestamp: number): string {
 }
 
 export function timestampToHHMM(timestamp: number): string {
-  console.log('timestamp:', timestamp)
   const date = new Date(timestamp * 1000)
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')

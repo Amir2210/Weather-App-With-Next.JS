@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar'
 import axios from 'axios';
 import WeatherData from '@/types/Weather';
-import { timestampToDate, timestampToDay, timestampToHHMM } from '@/utils/formatedDate';
+import { timestampToDate, timestampToDay, timestampToHHMM, timestampToMMDD } from '@/utils/formatedDate';
 import Container from '@/components/Container';
 import { kelvinToCelsius } from '@/utils/kelvinToCelsius';
 import WeatherIcon from '@/components/WeatherIcon';
@@ -9,6 +9,7 @@ import { getDayOrNightIcon } from '@/utils/getDayOrNightIcon';
 import WeatherDetail from '@/components/WeatherDetail';
 import { metersToKilometers } from '@/utils/metersToKilometers';
 import { convertWindSpeed } from '@/utils/convertWindSpeed';
+import ForecastWeatherDetail from '@/components/forecastWeatherDetail';
 
 
 
@@ -19,7 +20,27 @@ export default async function Home() {
   const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=tel%20aviv&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
   const weatherData: WeatherData = data
   const firstData = weatherData?.list[0]
-  console.log('weatherData:', weatherData)
+  console.log(firstData)
+  // console.log('weatherData:', weatherData)
+
+  const uniqueDates = [
+    ...new Set(
+      weatherData?.list.map(
+        (entry: { dt: number; }) => new Date(entry.dt * 1000).toISOString().split("T")[0]
+      )
+    )
+  ];
+
+  // Filtering weatherData to get the first entry after 6 AM for each unique date
+  const firstDataForEachDate = uniqueDates.map((date) => {
+    return weatherData?.list.find((entry: { dt: number; }) => {
+      const entryDate = new Date(entry.dt * 1000).toISOString().split("T")[0];
+      const entryTime = new Date(entry.dt * 1000).getHours();
+      return entryDate === date && entryTime >= 6;
+    })
+  })
+
+  // console.log(firstDataForEachDate)
 
   if (!data) {
     return (
@@ -29,13 +50,14 @@ export default async function Home() {
     )
   }
   return (
-    <main className='flex flex-col gap-4 bg-gray-100 min-h-screen'>
+    <main className='flex flex-col gap-4 bg-sky-500 min-h-screen'>
       <Navbar />
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4'>
         <section className='space-y-4'>
           <div className='flex items-center gap-2 space-y-2'>
             <h2 className='flex gap-1 text-2xl items-end'>
-              <p>{timestampToDay(Date.now())}</p>
+              {/* <p>{timestampToDay(Date.now())}</p> */}
+              <p>{timestampToDay(firstData?.dt)}</p>
               <p className='text-lg'>({timestampToDate(Date.now())})</p>
             </h2>
           </div>
@@ -82,6 +104,24 @@ export default async function Home() {
         </div>
         <section className='flex flex-col w-full gap-4'>
           <p className='capitalize text-2xl'>forecast (7 days)</p>
+          {firstDataForEachDate.map((data, index) => (
+            <ForecastWeatherDetail key={index}
+              description={data?.weather[0].description ?? ''}
+              weatherIcon={data?.weather[0].icon ?? '01d'}
+              date={timestampToMMDD(data?.dt ?? 1719738000)}
+              day={timestampToDay(data?.dt ?? 1719738000)}
+              feels_like={data?.main.feels_like ?? 0}
+              temp={data?.main.temp ?? 0}
+              temp_max={data?.main.temp_max ?? 0}
+              temp_min={data?.main.temp_min ?? 0}
+              airPressure={`${data?.main.pressure} hPa`}
+              humidity={`${data?.main.humidity}%`}
+              sunrise={`${timestampToHHMM(weatherData?.city.sunrise)}`}
+              sunset={`${timestampToHHMM(weatherData?.city.sunset)}`}
+              visibility={`${metersToKilometers(data?.visibility ?? 1000)}`}
+              windSpeed={`${convertWindSpeed(data?.wind.speed ?? 1.64)}`}
+            />
+          ))}
         </section>
       </section>
     </main>
