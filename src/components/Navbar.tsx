@@ -38,6 +38,7 @@ export default function Navbar(props: Navbar) {
   function handleSuggestionClick(city: string) {
     router.push(`/?city=${encodeURIComponent(city)}`)
     setShowSuggestions(false)
+    setCity('')
   }
 
   async function handleSubmitSearch(e: React.FormEvent<HTMLFormElement>) {
@@ -46,8 +47,25 @@ export default function Navbar(props: Navbar) {
       setError('Location not found')
     } else {
       setError('')
+      setCity('')
       router.push(`/?city=${encodeURIComponent(city)}`)
       setShowSuggestions(false)
+    }
+  }
+
+  function handleCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords
+        try {
+          const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`)
+          const { city } = response.data
+          console.log(city.name)
+          router.push(`/?city=${encodeURIComponent(city.name)}`)
+        } catch (error) {
+          console.log(error)
+        }
+      })
     }
   }
   return (
@@ -58,7 +76,7 @@ export default function Navbar(props: Navbar) {
           <MdWbSunny className='text-3xl mt-1 text-yellow-300' />
         </div>
         <section className='flex gap-2 items-center'>
-          <MdMyLocation className='text-2xl text-white/80 hover:opacity-80 cursor-pointer duration-150' />
+          <MdMyLocation title='Your Current Location' onClick={handleCurrentLocation} className='text-2xl text-white/80 hover:opacity-80 cursor-pointer duration-150' />
           <MdOutlineLocationOn className='text-3xl text-white/80' />
           <p className='text-white text-sm capitalize'>{props.cityName}</p>
           <div className='relative'>
