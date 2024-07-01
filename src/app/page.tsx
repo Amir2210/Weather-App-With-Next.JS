@@ -47,11 +47,18 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4'>
         <section className='space-y-4'>
           <div className='flex items-center gap-2 space-y-2 text-white'>
-            <h2 className='flex gap-2 text-4xl items-end'>
-              <p>{timestampToDay(firstData?.dt)}</p>
-              <p className='text-lg'>({timestampToDate(Date.now())})</p>
-              <p>{weatherData.city.name}</p>
-            </h2>
+            <div className=' hidden sm:flex gap-2 text-4xl items-end'>
+              <h2>{timestampToDay(firstData?.dt)}</h2>
+              <h3 className='text-lg'>({timestampToDate(Date.now())})</h3>
+              <h2>{weatherData.city.name}</h2>
+            </div>
+            <div className='flex flex-col gap-2 mx-auto sm:hidden text-4xl'>
+              <div className='flex items-center gap-2'>
+                <h2>{timestampToDay(firstData?.dt)}</h2>
+                <h3 className='text-lg'>({timestampToDate(Date.now())})</h3>
+              </div>
+              <h2 className='text-center mb-2'>{weatherData.city.name}</h2>
+            </div>
           </div>
           <Container className='gap-10 px-6 items-center text-white' >
             <div className='flex flex-col px-4'>
