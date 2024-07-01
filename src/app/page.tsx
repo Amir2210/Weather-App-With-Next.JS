@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar'
-import axios from 'axios';
 import WeatherData from '@/types/Weather';
 import { timestampToDate, timestampToDay, timestampToHHMM, timestampToMMDD } from '@/utils/formatedDate';
 import Container from '@/components/Container';
@@ -9,18 +8,13 @@ import { getDayOrNightIcon } from '@/utils/getDayOrNightIcon';
 import WeatherDetail from '@/components/WeatherDetail';
 import { metersToKilometers } from '@/utils/metersToKilometers';
 import { convertWindSpeed } from '@/utils/convertWindSpeed';
-import ForecastWeatherDetail from '@/components/forecastWeatherDetail';
+import ForecastWeatherDetail from '@/components/ForecastWeatherDetail';
+import { getWeatherData } from '@/services/weather.service';
 
-
-
-
-
-export default async function Home() {
-
-  const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=tel%20aviv&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
-  const weatherData: WeatherData = data
+export default async function Home({ searchParams }: { searchParams: { city?: string } }) {
+  const city = searchParams.city || 'tel aviv';
+  const weatherData: WeatherData = await getWeatherData(city)
   const firstData = weatherData?.list[0]
-  // console.log('weatherData:', weatherData)
 
   const uniqueDates = [
     ...new Set(
@@ -40,7 +34,7 @@ export default async function Home() {
   })
 
 
-  if (!data) {
+  if (!weatherData) {
     return (
       <div className='flex items-center min-h-screen justify-center'>
         <p className='animate-bounce'>Loading...</p>
@@ -49,13 +43,14 @@ export default async function Home() {
   }
   return (
     <main className='flex flex-col gap-4 bg-gradient-to-r from-sky-700 to-blue-600 min-h-screen'>
-      <Navbar />
+      <Navbar cityName={weatherData.city.name} />
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4'>
         <section className='space-y-4'>
           <div className='flex items-center gap-2 space-y-2 text-white'>
-            <h2 className='flex gap-1 text-4xl items-end'>
+            <h2 className='flex gap-2 text-4xl items-end'>
               <p>{timestampToDay(firstData?.dt)}</p>
               <p className='text-lg'>({timestampToDate(Date.now())})</p>
+              <p>{weatherData.city.name}</p>
             </h2>
           </div>
           <Container className='gap-10 px-6 items-center text-white' >
