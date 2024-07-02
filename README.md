@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🌐 Live Website: You can visit the live version of Weather App at https://weather-app-lovat-eight-87.vercel.app/
 
-## Getting Started
+🎋 **Intro:**
+This project is a weather application that provides current weather data and a 7-day forecast for any city. It allows users to search for a city and get detailed weather information including temperature, humidity, wind speed, and more.
 
-First, run the development server:
+📦 **Tech Stack:**
+- Next.js
+- TypeScript
+- React
+- Axios (for API requests)
+- Tailwind CSS (for styling)
+- OpenWeatherMap API (for weather data)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+👩🏽‍🍳 **Features:**
+- Search for a city to get current weather data and a 7-day forecast.
+- Display current temperature, feels like temperature, min/max temperature, humidity, wind speed, and air pressure.
+- Show sunrise and sunset times.
+- Visual weather icons that change based on the weather conditions.
+- Responsive design with a beautiful gradient background.
+- Globe component to display an interactive globe (visible on larger screens).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+💭 **Process:**
+The project started by setting up a Next.js application and integrating the OpenWeatherMap API to fetch weather data. The experience involved creating reusable components for different parts of the weather data, such as the current weather, forecast, and detailed weather information. One of the challenges was ensuring the application is responsive and looks good on all screen sizes. The use of Jotai for state management made it easier to manage the selected city across different components.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📚 **Learnings:**
+- Gained experience with making API requests using Axios.
+- Improved understanding of Next.js and its server-side rendering capabilities.
+- Enhanced skills in creating responsive designs with Tailwind CSS.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
