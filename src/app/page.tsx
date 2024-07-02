@@ -52,12 +52,12 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-5'>
         <section className='space-y-4'>
           <div className='flex items-center gap-2 space-y-2 text-white'>
-            <div className=' hidden sm:flex gap-2 text-4xl items-end'>
+            <div className=' hidden sm:flex gap-2 text-4xl items-end font-mono'>
               <h2>{timestampToDay(firstData?.dt)}</h2>
               <h3 className='text-lg'>({timestampToDate(Date.now())})</h3>
               <h2>{weatherData.city.name}</h2>
             </div>
-            <div className='flex flex-col gap-2  sm:hidden text-4xl'>
+            <div className='flex flex-col gap-2  sm:hidden text-4xl font-mono'>
               <div className='flex items-center gap-2'>
                 <h2>{timestampToDay(firstData?.dt)}</h2>
                 <h3 className='text-lg'>({timestampToDate(Date.now())})</h3>
@@ -110,7 +110,7 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
           </Container>
         </div>
         <section className='flex flex-col w-full gap-4'>
-          <p className='capitalize text-4xl text-white'>forecast (7 days)</p>
+          <p className='capitalize text-4xl text-white font-mono'>forecast (7 days)</p>
           {firstDataForEachDate.map((data, index) => (
             <ForecastWeatherDetail key={index}
               description={data?.weather[0].description ?? ''}
