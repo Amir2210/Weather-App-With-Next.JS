@@ -10,6 +10,8 @@ import { metersToKilometers } from '@/utils/metersToKilometers';
 import { convertWindSpeed } from '@/utils/convertWindSpeed';
 import ForecastWeatherDetail from '@/components/ForecastWeatherDetail';
 import { getWeatherData } from '@/services/weather.service';
+import { Globe } from '@/components/ui/Globe';
+import { GlobeDemo } from '@/components/Globe';
 
 export default async function Home({ searchParams }: { searchParams: { city?: string } }) {
   const city = searchParams.city || 'tel aviv';
@@ -44,6 +46,9 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
   return (
     <main className='flex flex-col gap-4 bg-gradient-to-r from-sky-700 to-blue-600 min-h-screen'>
       <Navbar cityName={weatherData.city.name} />
+      <div className='hidden sm:block'>
+        <GlobeDemo />
+      </div>
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-5'>
         <section className='space-y-4'>
           <div className='flex items-center gap-2 space-y-2 text-white'>
@@ -57,7 +62,9 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
                 <h2>{timestampToDay(firstData?.dt)}</h2>
                 <h3 className='text-lg'>({timestampToDate(Date.now())})</h3>
               </div>
-              <h2 className='mb-2'>{weatherData.city.name}</h2>
+              <div>
+                <h2 className='mb-2'>{weatherData.city.name}</h2>
+              </div>
             </div>
           </div>
           <Container className='gap-10 px-6 items-center text-white' >
