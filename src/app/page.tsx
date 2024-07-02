@@ -10,8 +10,9 @@ import { metersToKilometers } from '@/utils/metersToKilometers';
 import { convertWindSpeed } from '@/utils/convertWindSpeed';
 import ForecastWeatherDetail from '@/components/ForecastWeatherDetail';
 import { getWeatherData } from '@/services/weather.service';
-import { Globe } from '@/components/ui/Globe';
 import { GlobeDemo } from '@/components/Globe';
+
+
 
 export default async function Home({ searchParams }: { searchParams: { city?: string } }) {
   const city = searchParams.city || 'tel aviv';
