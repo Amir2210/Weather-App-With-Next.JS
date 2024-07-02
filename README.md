@@ -27,4 +27,7 @@ The project started by setting up a Next.js application and integrating the Open
 - Improved understanding of Next.js and its server-side rendering capabilities.
 - Enhanced skills in creating responsive designs with Tailwind CSS.
 
+  ![‏‏לכידה](https://github.com/Amir2210/Weather-App-With-Next.JS/assets/107459404/4b91b38c-fd83-4b45-980c-47f910e2e401)
+
+
 
