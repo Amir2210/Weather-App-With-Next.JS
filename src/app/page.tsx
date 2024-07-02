@@ -47,7 +47,7 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
   return (
     <main className='flex flex-col gap-4 bg-gradient-to-r from-sky-700 to-blue-600 min-h-screen'>
       <Navbar cityName={weatherData.city.name} />
-      <div className='hidden sm:block'>
+      <div className=''>
         <GlobeDemo />
       </div>
       <section className='px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-5'>
@@ -132,6 +132,9 @@ export default async function Home({ searchParams }: { searchParams: { city?: st
           ))}
         </section>
       </section>
+      {/* <div className='block sm:hidden'>
+        <GlobeDemo />
+      </div> */}
     </main>
   )
 }

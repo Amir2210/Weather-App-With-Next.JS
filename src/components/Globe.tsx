@@ -395,7 +395,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className="flex dark:bg-black bg-transparent relative h-[45rem]">
+    <div className="flex dark:bg-black bg-transparent relative h-[12rem] sm:h-[45rem]">
       <div className="max-w-7xl mx-auto w-full relative overflow-hidden  px-4">
         <motion.div
           initial={{
@@ -411,7 +411,7 @@ export function GlobeDemo() {
           }}
           className="div"
         >
-          <h2 className="text-center text-4xl font-mono capitalize text-white">
+          <h2 className="hidden sm:block text-center text-4xl font-mono capitalize text-white">
             weather app with next.js
           </h2>
 
