@@ -416,8 +416,8 @@ export function GlobeDemo() {
           </h2>
 
         </motion.div>
-        <div className="absolute w-full bottom-0 inset-x-0 h-40  pointer-events-none select-none  z-40" />
-        <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
+        <div className="absolute w-full bottom-0 inset-x-0 h-40  pointer-events-none select-none" />
+        <div className="absolute w-full -bottom-20 h-72 md:h-full">
           <World data={sampleArcs} globeConfig={globeConfig} />;
         </div>
       </div>
