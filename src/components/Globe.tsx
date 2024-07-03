@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
+"use client"
+import React from "react"
+import { motion } from "framer-motion"
+import dynamic from "next/dynamic"
 
 const World = dynamic(() => import("./ui/Globe").then((m) => m.World), {
   ssr: false,
-});
+})
 
 export function GlobeDemo() {
   const globeConfig = {
@@ -29,8 +29,8 @@ export function GlobeDemo() {
     initialPosition: { lat: 22.3193, lng: 114.1694 },
     autoRotate: true,
     autoRotateSpeed: 0.5,
-  };
-  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+  }
+  const colors = ["#06b6d4", "#3b82f6", "#6366f1"]
   const sampleArcs = [
     {
       order: 1,
@@ -392,7 +392,7 @@ export function GlobeDemo() {
       arcAlt: 0.3,
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
-  ];
+  ]
 
   return (
     <div className="flex  bg-transparent relative h-[12rem] sm:h-[45rem]">
@@ -418,9 +418,9 @@ export function GlobeDemo() {
         </motion.div>
         <div className="absolute w-full bottom-0 inset-x-0 h-40  pointer-events-none select-none" />
         <div className="absolute w-full -bottom-20 h-72 md:h-full">
-          <World data={sampleArcs} globeConfig={globeConfig} />;
+          <World data={sampleArcs} globeConfig={globeConfig} />
         </div>
       </div>
     </div>
-  );
+  )
 }
